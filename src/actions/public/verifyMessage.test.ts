@@ -6,7 +6,18 @@ import { publicClientMainnet } from '~test/src/utils.js'
 import { verifyMessage } from './verifyMessage.js'
 
 describe('verifyMessage', () => {
-  test('valid signature', async () => {
+  test('valid signature (EOA)', async () => {
+    expect(
+      await verifyMessage(publicClientMainnet, {
+        address: accounts[0].address,
+        message: 'This is a test message for viem!',
+        signature:
+          '0xc4c7f2820177020d66d5fd00d084cdd3f575a868c059c29a2d7f23398d04819709a14f83d98b446dda539ca5dcb87d75aa3340eb15e66d67606850622a3420f61b',
+      }),
+    ).toBe(true)
+  })
+
+  test('valid signature (smart account)', async () => {
     expect(
       await verifyMessage(publicClientMainnet, {
         address: smartAccountConfig.address,
